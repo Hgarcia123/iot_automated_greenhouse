@@ -1,0 +1,14 @@
+{
+  "ID": "b2550194-d2bd-4bbe-88fe-18b93765c3a8",
+  "Name": "Workspace 2021-01-06 00_24_52.mcx",
+  "Children": [
+    {
+      "ID": "7774b0f9-79d2-4ee6-9528-354cfa76c8a8",
+      "Color": "#FE8D86",
+      "Matrix": "[1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,-7.0,22.0,0.0,1.0]",
+      "MeshPath": "476D04F6C94C548CA8D7FDC776A6C201424EC37C.stl",
+      "Name": "Subtract - Flattened",
+      "OwnerID": "487594cc-330d-4119-bda3-2441596a93f3"
+    }
+  ]
+}

@@ -1,0 +1,587 @@
+[
+    {
+        "id": "e5fc8143.05b0f",
+        "type": "tab",
+        "label": "Greenhouse",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "bdc541fb.312b9",
+        "type": "ui_text",
+        "z": "e5fc8143.05b0f",
+        "group": "3fcc768a.7bad8a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "TTGO T-Beam ESP32",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 140,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c45524d2.3e0c28",
+        "type": "inject",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "20",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 340,
+        "wires": [
+            [
+                "52ddb690.346838"
+            ]
+        ]
+    },
+    {
+        "id": "b5020f2a.9cc9",
+        "type": "function",
+        "z": "e5fc8143.05b0f",
+        "name": "Show Parametros",
+        "func": "\n\nmsg.topic = \"select * from Parametros where param_esp_id=187;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 400,
+        "wires": [
+            [
+                "e93e8c47.783dc"
+            ]
+        ]
+    },
+    {
+        "id": "e93e8c47.783dc",
+        "type": "mysql",
+        "z": "e5fc8143.05b0f",
+        "mydb": "a5299d53.ffa6f",
+        "name": "DataBase",
+        "x": 700,
+        "y": 400,
+        "wires": [
+            [
+                "8e7b8eba.4d74d"
+            ]
+        ]
+    },
+    {
+        "id": "f2a6db74.8a5968",
+        "type": "function",
+        "z": "e5fc8143.05b0f",
+        "name": "Insert Medidas (temp)",
+        "func": "msg.topic = \"insert into Medidas (medidas_valor, medidas_sensor_id) values (\" + msg.payload.temperature + \", 1)\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 100,
+        "wires": [
+            [
+                "8a14d370.38399"
+            ]
+        ]
+    },
+    {
+        "id": "76ba9f60.669fc",
+        "type": "debug",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 230,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8e845fe9.42a4a",
+        "type": "mqtt in",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "topic": "esp32_data",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "10e78a89.5b4fd5",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "46cda063.0693a"
+            ]
+        ]
+    },
+    {
+        "id": "46cda063.0693a",
+        "type": "json",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "76ba9f60.669fc",
+                "f2a6db74.8a5968",
+                "e810d891.175c48",
+                "bac05a0e.b055b8",
+                "df336b1b.e84e18",
+                "62703a8a.7c32f4"
+            ]
+        ]
+    },
+    {
+        "id": "10f5ec57.a352d4",
+        "type": "debug",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "98dc0bb1.b05d18",
+        "type": "influxdb out",
+        "z": "e5fc8143.05b0f",
+        "influxdb": "373fa459.54e07c",
+        "name": "Influxdb",
+        "measurement": "devices",
+        "precision": "s",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 580,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e810d891.175c48",
+        "type": "function",
+        "z": "e5fc8143.05b0f",
+        "name": "Insert Medidas (humid)",
+        "func": "msg.topic = \"insert into Medidas (medidas_valor, medidas_sensor_id) values (\" + msg.payload.humidity + \", 2)\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 140,
+        "wires": [
+            [
+                "8a14d370.38399"
+            ]
+        ]
+    },
+    {
+        "id": "bac05a0e.b055b8",
+        "type": "function",
+        "z": "e5fc8143.05b0f",
+        "name": "Insert Medidas (lumi)",
+        "func": "msg.topic = \"insert into Medidas (medidas_valor, medidas_sensor_id) values (\" + msg.payload.luminosity + \", 3)\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 480,
+        "y": 180,
+        "wires": [
+            [
+                "8a14d370.38399"
+            ]
+        ]
+    },
+    {
+        "id": "df336b1b.e84e18",
+        "type": "function",
+        "z": "e5fc8143.05b0f",
+        "name": "Insert Medidas (soilmoist)",
+        "func": "msg.topic = \"insert into Medidas (medidas_valor, medidas_sensor_id) values (\" + msg.payload.soilmoisture + \", 4)\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "8a14d370.38399"
+            ]
+        ]
+    },
+    {
+        "id": "8a14d370.38399",
+        "type": "delay",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 700,
+        "y": 100,
+        "wires": [
+            [
+                "32ba6bbd.5e1b54"
+            ]
+        ]
+    },
+    {
+        "id": "32ba6bbd.5e1b54",
+        "type": "mysql",
+        "z": "e5fc8143.05b0f",
+        "mydb": "a5299d53.ffa6f",
+        "name": "DataBase",
+        "x": 840,
+        "y": 100,
+        "wires": [
+            [
+                "10f5ec57.a352d4"
+            ]
+        ]
+    },
+    {
+        "id": "8e7b8eba.4d74d",
+        "type": "json",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 400,
+        "wires": [
+            [
+                "5b2159af.28b7c8"
+            ]
+        ]
+    },
+    {
+        "id": "f3d43853.116228",
+        "type": "function",
+        "z": "e5fc8143.05b0f",
+        "name": "Show Parametros",
+        "func": "msg.topic = \"select * from Parametros where param_esp_id=204;\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 460,
+        "wires": [
+            [
+                "391d5569.6bea6a"
+            ]
+        ]
+    },
+    {
+        "id": "391d5569.6bea6a",
+        "type": "mysql",
+        "z": "e5fc8143.05b0f",
+        "mydb": "a5299d53.ffa6f",
+        "name": "DataBase",
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "f9673260.1d74b"
+            ]
+        ]
+    },
+    {
+        "id": "f9673260.1d74b",
+        "type": "json",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "949e1d3b.7bed1"
+            ]
+        ]
+    },
+    {
+        "id": "949e1d3b.7bed1",
+        "type": "change",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "[",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 980,
+        "y": 460,
+        "wires": [
+            [
+                "d9ed652f.a4eaa8",
+                "1cc592e3.5c512d"
+            ]
+        ]
+    },
+    {
+        "id": "1cc592e3.5c512d",
+        "type": "mqtt out",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "topic": "esp32_parameters",
+        "qos": "",
+        "retain": "",
+        "broker": "10e78a89.5b4fd5",
+        "x": 1250,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "d9ed652f.a4eaa8",
+        "type": "debug",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "52ddb690.346838",
+        "type": "delay",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 240,
+        "y": 400,
+        "wires": [
+            [
+                "b5020f2a.9cc9",
+                "a77f7ae6.f0ae38"
+            ]
+        ]
+    },
+    {
+        "id": "a77f7ae6.f0ae38",
+        "type": "delay",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "10",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 320,
+        "y": 460,
+        "wires": [
+            [
+                "f3d43853.116228"
+            ]
+        ]
+    },
+    {
+        "id": "5b2159af.28b7c8",
+        "type": "change",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "[",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "]",
+                "fromt": "str",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 980,
+        "y": 400,
+        "wires": [
+            [
+                "1cc592e3.5c512d",
+                "d9ed652f.a4eaa8"
+            ]
+        ]
+    },
+    {
+        "id": "62703a8a.7c32f4",
+        "type": "delay",
+        "z": "e5fc8143.05b0f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "98dc0bb1.b05d18"
+            ]
+        ]
+    },
+    {
+        "id": "3fcc768a.7bad8a",
+        "type": "ui_group",
+        "z": "e5fc8143.05b0f",
+        "name": "Status",
+        "tab": "e7c46d5e.a1283",
+        "order": 1,
+        "disp": true,
+        "width": "5",
+        "collapse": false
+    },
+    {
+        "id": "a5299d53.ffa6f",
+        "type": "MySQLdatabase",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "Projeto",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "10e78a89.5b4fd5",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "raspberrypi.local",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "373fa459.54e07c",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "Greenhouse",
+        "name": "Greenhouse",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "e7c46d5e.a1283",
+        "type": "ui_tab",
+        "name": "Greenhouse",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

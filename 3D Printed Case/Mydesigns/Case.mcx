@@ -1,0 +1,77 @@
+{
+  "ID": "11095a7b-5091-403a-a7b3-d98ca7108ddf",
+  "Name": "",
+  "Children": [
+    {
+      "ID": "bb96b5bd-69d7-4c44-be02-86137ce6f734",
+      "Color": "#FE8D86",
+      "Matrix": "[1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,3.0000076293945313,3.0,0.0,1.0]",
+      "MeshPath": "F68F30EE52133E400606A6BE91D2D982388B43A2.stl",
+      "Name": "Cube (2)",
+      "OwnerID": "d20dee2c-a33e-45d1-a44a-6986d4d66fd6"
+    },
+    {
+      "ID": "dfd1aa64-9e8b-4075-be29-4323e73d2fae",
+      "Name": "Combine",
+      "TypeName": "CombineObject3D_2",
+      "Children": [
+        {
+          "ID": "01a358df-40c1-4dd7-894f-bb0e02e8971e",
+          "Name": "Source",
+          "TypeName": "OperationSourceObject3D",
+          "Visible": false,
+          "Children": [
+            {
+              "ID": "0711157b-7c68-47b4-a9c7-03a99380469e",
+              "Matrix": "[1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,-1.0,-3.0,0.0,1.0]",
+              "Name": "Subtract - Flattened (1)",
+              "Children": [
+                {
+                  "ID": "2bf1ff3e-d5fb-4717-b7e1-f256c33a2457",
+                  "Color": "#FE8D86",
+                  "MeshPath": "A6BFA71C40D37174C1490E2381FF44CB476B796B.stl",
+                  "Name": "Cube (4)",
+                  "OwnerID": "00b1b9e0-8737-44db-9d06-6309d4109e3c"
+                },
+                {
+                  "ID": "dab5d38b-7065-4053-a40e-a468156e6071",
+                  "Color": "#FE8D86",
+                  "MeshPath": "A521CC048BF90B571628A7700980FD70562FFE00.stl",
+                  "Name": "Cube (3)",
+                  "OwnerID": "bc98d528-3baf-4195-8ecb-9cdbedc00962"
+                },
+                {
+                  "ID": "8a1856e6-1ad5-4f05-ba85-8712682cb83b",
+                  "Color": "#FE8D86",
+                  "MeshPath": "99958CFA439A52E7D6BA44AE219C0C8BA56FE454.stl",
+                  "Name": "Cube (1)",
+                  "OwnerID": "8d4eaf0a-7b7f-4f3a-b13b-391fa680083e"
+                },
+                {
+                  "ID": "3706ceb1-3005-494e-b5e1-bda98d1b0247",
+                  "Color": "#FE8D86",
+                  "MeshPath": "A08F36AE0FA5F51EE9B5424D3BBAF4972FF363F2.stl",
+                  "Name": "Cube",
+                  "OwnerID": "71c0b6d9-8334-4c0c-87ec-e933f28fcf26"
+                },
+                {
+                  "ID": "4731fdff-09e6-4511-b81d-16b05f7209b8",
+                  "Color": "#FFFFFF",
+                  "MeshPath": "F0FD2B3536B1FB8A6D0A01E6DEA33C391FCF80BD.stl",
+                  "Name": "Subtract - Flattened",
+                  "OwnerID": "506f53e9-cf94-4493-84bc-a0aa06025716"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ID": "ef498a2b-b0e7-4071-bc58-289c9038639a",
+          "Color": "#FFFFFF",
+          "MeshPath": "E681F92B49534AEF20C579C1566AE939AC43733D.stl",
+          "Name": "Subtract - Flattened"
+        }
+      ]
+    }
+  ]
+}
